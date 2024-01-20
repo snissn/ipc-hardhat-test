@@ -12,9 +12,26 @@ async function main() {
 
   const lockedAmount = hre.ethers.parseEther("0.001");
 
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+const ethers = hre.ethers;
+
+// Define the EIP-1559 transaction parameters
+const txParams = {
+    //maxFeePerGas: ethers.parseUnits('100', 'gwei'), // Example value, adjust as needed
+    //maxPriorityFeePerGas: ethers.parseUnits('2', 'gwei'), // Example value, adjust as needed
+    value: lockedAmount // The amount of Ether to send with the transaction
+};
+
+    var error, lock
+    try {
+
+// Deploy the contract with EIP-1559 transaction parameters
+        lock = await hre.ethers.deployContract("Lock", [unlockTime], txParams);
+    } catch (error) {
+        console.error("An error occurred during contract deployment:", error);
+        throw error
+    }
+
+
 
   await lock.waitForDeployment();
 
