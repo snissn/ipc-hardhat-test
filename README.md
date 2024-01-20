@@ -1,6 +1,8 @@
 
 # IPC bug
 
+please install with `npm install` and not `yarn`
+
 To reproduce, set up IPC on port 8545, clone this repo, update the private keys in hardhat.config.js to match your credentials, and run the following:
 
 ```
